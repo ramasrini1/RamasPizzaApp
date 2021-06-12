@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Billing Information</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<style>
+    * {
+      box-sizing: border-box;
+    }
+    .left {
+      padding: 20px;
+      float: left;
+      width: 5%;
+    } 
+    .main {      
+      padding: 20px;
+      float: left;
+      width: 65%; /* The width is 60%, by default */
+    }
+    .right {   
+      padding: 20px;
+      float: left;
+      width: 30%; /* The width is 20%, by default */
+    }
+    .form-group.error input {
+      border-color: #dc3545;
+    }
+    .form-group.success input {
+      border-color: #28a745;
+    }
+    .form-group small {
+      color: red;
+    }  
+    .myLabel
+    {
+    	background-color:Blue;
+    	color:Green;
+    	border-style:double;
+    	}
+    
+    /* Use a media query to add a break point at 800px: */
+    @media screen and (max-width: 800px) {
+      .left, .main, .right {
+        width: 100%; /* The width is 100%, when the viewport is 800px or smaller */
+      }
+    }
+    </style>
+</head>
+<body>
+    <p><img src="images/pizzalogo3.png" id="logo"></p>
+    
+    <div class="left">
+        <p></p>
+    </div>
+
+    <div class="main">
+        <legend class="scheduler-border">Billing Information </legend>
+        <hr size="8" width="100%" color="red">
+        <form id="billingForm" action="">
+          <div class="form-row">
+            <div class="form-group col-sm-12">
+              <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="sameAddress">
+                <label class="form-check-label" for="exampleCheck1">Check this box if billing address is same as delivery</label>
+              </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-sm-12">
+                <label for="name">Name</label>
+                <input type="text" class="form-control" id="name">
+                <small></small>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-sm-12">
+              <label for="adresstypeLabel">Adddress Type</label>
+              <select id="addressType" class="form-control" autocomplete="off" onchange='CheckOptions(this.value);'>
+                <option disabled="disabled" selected="selected" value="disabledOption">Select The Address Type</option>
+                <option value="apartment">Apartment</option>
+                <option value="business">Business</option>
+                <option value="campus">Campus</option>
+                <option value="hotel">Hotel</option>
+                <option value="dorm">Dorm</option>
+                <option value="other">Other</option>
+              </select>
+              <small></small>
+            </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-sm-12">
+            <input type="text" class="form-control" id="otherType"  style='display:none;' placeholder="Enter other address type" autocomplete="off">
+            <small></small>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-sm-12">
+            <label for="inputAddress">Street Address</label>
+            <input type="text" class="form-control" id="address">
+            <small></small>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-sm-12">
+            <label for="inputAddress">Apartment, Suite etc..(optional)</label>
+            <input type="text" class="form-control" id="appartment">
+            <small></small>
+          </div>
+        </div>
+        
+        <div class="form-row">
+            <div class="form-group col-sm-4">
+              <label for="inputCity">City</label>
+              <input type="text" class="form-control" id="city">
+              <small></small>
+            </div>
+            <div class="form-group col-sm-4">
+              <label for="inputState">State Code(CA)</label>
+              <input type="text" class="form-control" id="state">
+              <small></small>
+            </div>
+            <div class="form-group col-sm-4">
+              <label for="inputZip">5 digit zip</label>
+              <input type="text" class="form-control" id="zip">
+              <small></small>
+            </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-sm-12">
+          </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-sm-6">
+              <label for="inputPhone">Phone</label>
+              <input type="text" class="form-control" id="phone">
+              <small></small>
+            </div>
+            <div class="form-group col-sm-6">
+              <label for="inputEmail">Email</label>
+              <input type="email" class="form-control" id="email">
+              <small></small>
+            </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-sm-6">
+            <label for="inputcard">Credit Card Number</label>
+            <input type="text" class="form-control" id="cardNumber">
+            <small></small>
+          </div>
+          <div class="form-group col-sm-6">
+            <label for="creditCardType">Credit Card Type</label>
+            <input type="text" class="form-control" id="cardType" readonly>
+            <small></small>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-sm-5">
+            <label for="creditCard">Expiration Month</label>
+            <select id="expiryMonth" class="form-control" autocomplete="off">
+              <option disabled="disabled" selected="selected" value="disabledOption">-</option>
+              <option value="1">01</option>
+              <option value="2">02</option>
+              <option value="3">03</option>
+              <option value="4">04</option>
+              <option value="5">05</option>
+              <option value="6">06</option>
+              <option value="7">07</option>
+              <option value="8">08</option>
+              <option value="9">09</option>
+              <option value="10">10</option>
+              <option value="11">11</option>
+              <option value="12">12</option>
+            </select>
+            <small></small>
+          </div>
+          <div class="form-group col-sm-4">
+            <label for="adresstypeLabel">Expiration year</label>
+            <select id="expiryYear" class="form-control" autocomplete="off">
+              <option disabled="disabled" selected="selected" value="disabledOption">----</option>
+              <option value="2020">2020</option>
+              <option value="2021">2021</option>
+              <option value="2022">2022</option>
+              <option value="2023">2023</option>
+              <option value="2024">2024</option>
+              <option value="2025">2025</option>
+              <option value="2026">2026</option>
+              <option value="2027">2027</option>
+              <option value="2028">2028</option>
+              <option value="2029">2029</option>
+              <option value="2030">2030</option>     
+            </select>
+            <small></small>
+          </div>
+          <div class="form-group col-sm-3">
+            <label for="inputEmail">CVC code</label>
+            <input type="text" class="form-control" id="cvc">
+            <small></small>
+          </div>
+      </div>
+        <div class="form-row">
+          <div class="form-group col-sm-12">
+            <input type="submit" value="Submit">
+          </div> 
+        </div> 
+      </form>     
+    
+    </div>
+
+    <div class="right">
+        <h4></h4>
+    </div>
+
+<script src="js/billing.js"></script>
+</body>
+</html>
